@@ -40,26 +40,9 @@ public class UserGUI : MonoBehaviour {
 			}
 		}
 	}
-	void JudgeIfShow(){
-		if (GUI.Button (new Rect (530, 500, 100, 30), "Guide", MyButtonStyle)) {
-			if (show == 1)
-				show = 0;
-			else
-				show = 1;
-		}
-	}
-	void IfShow(){
-		if (show == 1) {
-			GUI.Label(new Rect(Screen.width / 2 - 85, 10, 200, 50), "让全部牧师和恶魔都渡河", MyStyle);
-			GUI.Label(new Rect(Screen.width / 2 - 120, 50, 250, 50), "每一边恶魔数量都不能多于牧师数量", MyStyle);
-			GUI.Label (new Rect (Screen.width / 2 - 85, 90, 250, 50), "点击牧师、恶魔、船移动, 方块为牧师, 球体为恶魔", MyStyle);
-		}
-	}
 	void OnGUI(){
 		IsPause ();
 		reStart ();
-		JudgeIfShow ();
-		IfShow ();
 		if(Director.cn_move == 1)
 			GUI.Label (new Rect (Screen.width/2-Screen.width/8, 50, 100, 50), "Pausing", MyStyle);
 		if (if_win_or_not == -1) {
