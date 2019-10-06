@@ -4,11 +4,11 @@ using UnityEngine;
 using Com.Engine;
 
 public class UserGUI : MonoBehaviour {
-	private UserAction action;
+	public UserAction action;
 	private GUIStyle MyStyle;
 	private GUIStyle MyButtonStyle;
 	public int if_win_or_not;
-	public int show;
+	Judge judger;
 
 	void Start(){
 		action = Director.get_Instance ().curren as UserAction;
@@ -20,39 +20,10 @@ public class UserGUI : MonoBehaviour {
 
 		MyButtonStyle = new GUIStyle ("button");
 		MyButtonStyle.fontSize = 30;
-	}
-	void reStart(){
-		if (GUI.Button (new Rect (Screen.width/2-Screen.width/8, Screen.height/2+100, 150, 50), "Restart", MyButtonStyle)) {
-			if_win_or_not = 0;
-			action.restart ();
-		}
-	}
-	void IsPause(){
-		if (GUI.Button (new Rect (Screen.width / 2 - 350, Screen.height / 2 + 100, 150, 50), "Pause", MyButtonStyle)) {
-			if (Director.cn_move == 0) {
-				action.pause ();
-				Director.cn_move = 1;
-			} 
-		} else if (GUI.Button (new Rect (Screen.width-Screen.width/2 + 150, Screen.height / 2 + 100, 150, 50), "Continue", MyButtonStyle)) {
-			if (Director.cn_move == 1) {
-				action.Coninu();
-				Director.cn_move = 0;
-			}
-		}
+
+		judger = new Judge();
 	}
 	void OnGUI(){
-		IsPause ();
-		reStart ();
-		if(Director.cn_move == 1)
-			GUI.Label (new Rect (Screen.width/2-Screen.width/8, 50, 100, 50), "Pausing", MyStyle);
-		if (if_win_or_not == -1) {
-			GUI.Label (new Rect (Screen.width/2-Screen.width/8, 50, 100, 50), "Game Over", MyStyle);
-			IsPause ();
-			reStart ();
-		} else if (if_win_or_not == 1) {
-			GUI.Label (new Rect (Screen.width/2-Screen.width/8, 50, 100, 50), "You Win", MyStyle);
-			IsPause ();
-			reStart ();
-		}
+		judger.judge(this,MyStyle,MyButtonStyle);
 	}
 }
